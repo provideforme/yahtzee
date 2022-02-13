@@ -20,13 +20,13 @@ let currentRoll = [];
 const dice = document.querySelectorAll("img");
 const rollButton = document.getElementById("roll-btn");
 const diceArea = document.getElementById("main-zone")
+
 const d1 = document.querySelector("#d1");
 const d2 = document.querySelector("#d2");
 const d3 = document.querySelector("#d3");
 const d4 = document.querySelector("#d4");
 const d5 = document.querySelector("#d5");
 const numberDice = [d1, d2, d3, d4, d5]
-console.log(d1)
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
 diceArea.addEventListener('click', keepDie);
@@ -38,6 +38,7 @@ function roll(){
 }
 
 function diceRollAnimation(){
+  diceArea.style.visibility = "visible"
   currentRoll = []
   dice.forEach(function(die){
     die.classList.add("shake")
@@ -63,5 +64,6 @@ function chooseRandomNumber(){
 
 function keepDie(evt) {
   let dieToBeRemoved = document.getElementById(evt.target.id);
-  dieToBeRemoved.parentNode.removeChild(dieToBeRemoved)
+  dieToBeRemoved.parentNode.removeChild(dieToBeRemoved);
+  console.log(dieToBeRemoved);
 }
