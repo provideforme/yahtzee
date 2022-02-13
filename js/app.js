@@ -29,7 +29,7 @@ const numberDice = [d1, d2, d3, d4, d5]
 console.log(d1)
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
-diceArea.addEventListener('click', removeFromMain);
+diceArea.addEventListener('click', keepDie);
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -61,9 +61,7 @@ function chooseRandomNumber(){
   return number
 } 
 
-function removeFromMain(evt){
-  let ele = evt.target.id
-
-  console.log(ele)
+function keepDie(evt) {
+  let dieToBeRemoved = document.getElementById(evt.target.id);
+  dieToBeRemoved.parentNode.removeChild(dieToBeRemoved)
 }
-

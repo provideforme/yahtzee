@@ -22,6 +22,7 @@ body {
 
 .dice-area {
   width: 600px;
+  height: 200px;
   padding: 50px;
   border-radius: 30px;
   background-color: white;
