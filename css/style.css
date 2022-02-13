@@ -14,12 +14,43 @@ html {
 body {
   height: 100vh;
   background-color: darkgray;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .dice-area {
-  width: 400px;
+  width: 600px;
   padding: 50px;
-  border: 1px solid black;
+  border-radius: 30px;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.die {
+  display: flex;
+  justify-content: space-around;
+}
+
+.die > img {
+  padding: 5px;
+}
+
+.shake {
+  animation: shake .5s infinite;
+}
+
+@keyframes shake{
+  0%{
+    transform: rotate(8deg);
+  }
+  50%{
+    transform: rotate(-8deg);
+  }
+  100%{
+    transform: rotate(8deg);
+  }
 }
