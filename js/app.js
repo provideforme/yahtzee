@@ -10,7 +10,8 @@ let images = [
 ];
 
 /*-------------------------------- Variables --------------------------------*/
-let diceInPlay = [];
+let diceInPlay = []; //all potential dice
+let currentRoll = [];
 
 
 
@@ -18,22 +19,26 @@ let diceInPlay = [];
 /*------------------------ Cached Element References ------------------------*/
 const dice = document.querySelectorAll("img");
 const rollButton = document.getElementById("roll-btn");
+const diceArea = document.getElementById("main-zone")
 const d1 = document.querySelector("#d1");
 const d2 = document.querySelector("#d2");
 const d3 = document.querySelector("#d3");
 const d4 = document.querySelector("#d4");
 const d5 = document.querySelector("#d5");
 const numberDice = [d1, d2, d3, d4, d5]
-
+console.log(d1)
 /*----------------------------- Event Listeners -----------------------------*/
-rollButton.addEventListener('click', handleClick);
+rollButton.addEventListener('click', roll);
+diceArea.addEventListener('click', removeFromMain);
+
 
 /*-------------------------------- Functions --------------------------------*/
-function handleClick(){
+function roll(){
   diceRollAnimation();
 }
 
 function diceRollAnimation(){
+  currentRoll = []
   dice.forEach(function(die){
     die.classList.add("shake")
   });
@@ -44,8 +49,10 @@ function diceRollAnimation(){
     numberDice.forEach(function(die){
       let value = chooseRandomNumber();
       die.setAttribute("src", images[value]);
+      currentRoll.push(value)
     });
   }, 1000);
+  console.log(currentRoll)
 }
 
 function chooseRandomNumber(){
@@ -53,3 +60,10 @@ function chooseRandomNumber(){
 
   return number
 } 
+
+function removeFromMain(evt){
+  let ele = evt.target.id
+
+  console.log(ele)
+}
+
