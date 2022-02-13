@@ -1,4 +1,5 @@
 /*-------------------------------- Constants --------------------------------*/
+
 let images = [
   "../images/Dice-1-b.svg",
   "../images/Dice-2-b.svg",
@@ -8,17 +9,22 @@ let images = [
   "../images/Dice-6a-b.svg"
 ];
 
-
 /*-------------------------------- Variables --------------------------------*/
+let diceInPlay = [];
+
 
 
 
 /*------------------------ Cached Element References ------------------------*/
 const dice = document.querySelectorAll("img");
-
-console.log(dice);
-
 const rollButton = document.getElementById("roll-btn");
+const d1 = document.querySelector("#d1");
+const d2 = document.querySelector("#d2");
+const d3 = document.querySelector("#d3");
+const d4 = document.querySelector("#d4");
+const d5 = document.querySelector("#d5");
+const numberDice = [d1, d2, d3, d4, d5]
+
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', handleClick);
 
@@ -35,16 +41,15 @@ function diceRollAnimation(){
     dice.forEach(function(die){
       die.classList.remove("shake");
     });
-    let d1Value = Math.floor((Math.random() * 6));
-    let d2Value = Math.floor((Math.random() * 6));
-    let d3Value = Math.floor((Math.random() * 6));
-    let d4Value = Math.floor((Math.random() * 6));
-    let d5Value = Math.floor((Math.random() * 6));
-    console.log(d1Value, d2Value, d3Value, d4Value, d5Value);
-    document.querySelector("#d1").setAttribute("src", images[d1Value]);
-    document.querySelector("#d2").setAttribute("src", images[d2Value]);
-    document.querySelector("#d3").setAttribute("src", images[d3Value]);
-    document.querySelector("#d4").setAttribute("src", images[d4Value]);
-    document.querySelector("#d5").setAttribute("src", images[d5Value]);
+    numberDice.forEach(function(die){
+      let value = chooseRandomNumber();
+      die.setAttribute("src", images[value]);
+    });
   }, 1000);
 }
+
+function chooseRandomNumber(){
+  let number = Math.floor((Math.random() * 6));
+
+  return number
+} 
