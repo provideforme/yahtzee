@@ -89,7 +89,6 @@ function keepDie(evt) {
   diceKept.push(evt.target.id)
   currentRoll.splice(evt.target.id, 1)
   diceKeptArea.appendChild(evt.target)
-  console.log(numberDice);
 }
 
 // loop through array
