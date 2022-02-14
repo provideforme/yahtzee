@@ -12,6 +12,8 @@ let images = [
 /*-------------------------------- Variables --------------------------------*/
 let diceInPlay = []; //all potential dice
 let currentRoll = [];
+let diceKept = [];
+
 
 
 
@@ -19,7 +21,8 @@ let currentRoll = [];
 /*------------------------ Cached Element References ------------------------*/
 const dice = document.querySelectorAll("img");
 const rollButton = document.getElementById("roll-btn");
-const diceArea = document.getElementById("main-zone")
+const diceArea = document.getElementById("main-zone");
+const diceKeptArea = document.querySelector(".dice-kept-area");
 
 const d1 = document.querySelector("#d1");
 const d2 = document.querySelector("#d2");
@@ -40,6 +43,7 @@ function roll(){
 function diceRollAnimation(){
   diceArea.style.visibility = "visible"
   currentRoll = []
+  let diceArray = Array.from(dice)
   dice.forEach(function(die){
     die.classList.add("shake")
   });
@@ -54,10 +58,11 @@ function diceRollAnimation(){
     });
   }, 1000);
   console.log(currentRoll)
+  console.log(diceArray)
 }
 
 function chooseRandomNumber(){
-  let number = Math.floor((Math.random() * 6));
+  let number = Math.floor(Math.random() * 6);
 
   return number
 } 
@@ -65,5 +70,8 @@ function chooseRandomNumber(){
 function keepDie(evt) {
   let dieToBeRemoved = document.getElementById(evt.target.id);
   dieToBeRemoved.parentNode.removeChild(dieToBeRemoved);
-  console.log(dieToBeRemoved);
+
+
+  diceKept.push(evt.target.id)
+  diceKeptArea.innerText = diceKept
 }
