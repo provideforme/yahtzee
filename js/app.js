@@ -1,18 +1,36 @@
 /*-------------------------------- Constants --------------------------------*/
+let dieOne =  "../images/Dice-1-b.svg"
+let dieTwo= "../images/Dice-2-b.svg"
+let dieThree = "../images/Dice-3-b.svg"
+let dieFour = "../images/Dice-4-b.svg"
+let dieFive = "../images/Dice-5-b.svg"
+let dieSix = "../images/Dice-6a-b.svg"
+
+let dieValue = {
+  dieOne: 1,
+  dieTwo: 2,
+  dieThree: 3,
+  dieFour: 4,
+  dieFive: 5,
+  dieSix: 6,
+}
 
 let images = [
-  "../images/Dice-1-b.svg",
-  "../images/Dice-2-b.svg",
-  "../images/Dice-3-b.svg",
-  "../images/Dice-4-b.svg",
-  "../images/Dice-5-b.svg",
-  "../images/Dice-6a-b.svg"
+  dieOne,
+  dieTwo,
+  dieThree,
+  dieFour,
+  dieFive,
+  dieSix
 ];
+
+//key value pairs. each image needs a value.
 
 /*-------------------------------- Variables --------------------------------*/
 let diceInPlay = []; //all potential dice
 let currentRoll = [];
 let diceKept = [];
+let diceToRoll = [];
 
 
 
@@ -22,7 +40,7 @@ let diceKept = [];
 const dice = document.querySelectorAll("img");
 const rollButton = document.getElementById("roll-btn");
 const diceArea = document.getElementById("main-zone");
-const diceKeptArea = document.querySelector(".dice-kept-area");
+const diceKeptArea = document.getElementById("keep-zone");
 
 const d1 = document.querySelector("#d1");
 const d2 = document.querySelector("#d2");
@@ -43,7 +61,6 @@ function roll(){
 function diceRollAnimation(){
   diceArea.style.visibility = "visible"
   currentRoll = []
-  let diceArray = Array.from(dice)
   dice.forEach(function(die){
     die.classList.add("shake")
   });
@@ -53,12 +70,11 @@ function diceRollAnimation(){
     });
     numberDice.forEach(function(die){
       let value = chooseRandomNumber();
-      die.setAttribute("src", images[value]);
+      die.setAttribute("src", images[value], "value", dieValue[value[1]])
       currentRoll.push(value)
     });
   }, 1000);
-  console.log(currentRoll)
-  console.log(diceArray)
+  // console.log(currentRoll)
 }
 
 function chooseRandomNumber(){
@@ -70,8 +86,13 @@ function chooseRandomNumber(){
 function keepDie(evt) {
   let dieToBeRemoved = document.getElementById(evt.target.id);
   dieToBeRemoved.parentNode.removeChild(dieToBeRemoved);
-
-
   diceKept.push(evt.target.id)
-  diceKeptArea.innerText = diceKept
+  currentRoll.splice(evt.target.id, 1)
+  diceKeptArea.appendChild(evt.target)
+  console.log(numberDice);
 }
+
+// loop through array
+// if dice === currentRoll push to diceToRoll
+
+// if rollCount > 3 cut it

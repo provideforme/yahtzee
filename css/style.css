@@ -37,19 +37,21 @@ body {
   padding: 50px;
   border-radius: 30px;
   background-color: white;
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   align-items: center;
 }
 
-.die {
+.die, .kept-die {
   display: flex;
   justify-content: space-around;
 }
 
-.die > img {
+.die > img, .kept-die > img {
   padding: 5px;
 }
+
+
 
 .shake {
   animation: shake .5s infinite;
