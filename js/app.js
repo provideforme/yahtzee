@@ -30,6 +30,7 @@ const diceKeptArea = document.getElementById("keep-zone");
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
 diceArea.addEventListener('click', keepDie);
+diceKeptArea.addEventListener('click', returnDie);
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -40,6 +41,9 @@ function roll(){
     diceArea.removeChild(diceArea.lastChild)
   }
   if(currentRoll.length){
+    for (let i = currentRoll.length - 1; i >= 0; i--) {
+
+    }
     shuffleOrder(currentRoll)
     rollAnimation()
   } else {
@@ -79,35 +83,6 @@ function shuffleOrder(arr) {
   currentRoll = arr
 }
 
-// function diceRollAnimation(){
-//   clickCount();
-//   diceArea.style.visibility = "visible"
-//   console.log(rollNumber);
-//   if(rollNumber === 1){
-//     currentRoll = []
-//     numberDice.forEach(function(die){
-//       die.classList.add("shake")
-//     });
-//     setTimeout(function(){
-//       numberDice.forEach(function(die){
-//         die.classList.remove("shake");
-//       });
-//       numberDice.forEach(function(die){
-//         const randomIndex = chooseRandomNumber();
-//         const value = randomIndex + 1
-//         die.src = images[randomIndex]
-//         die.setAttribute("id", randomIndex + 1)
-//         console.log("die", die)
-//         currentRoll.push(value)
-//       });
-//     }, 1000);}
-//     else if (rollNumber > 1){
-//       currentRoll.forEach(function(die){
-//         die.classList.add("shake")
-//       }, 1000);
-//   }
-//   // console.log(currentRoll)
-// }
 
 function keepDie(evt) {
   let dieToBeRemoved = document.getElementById(evt.target.id);
@@ -117,9 +92,22 @@ function keepDie(evt) {
   const index = currentRoll.indexOf(id)
   console.log(index)
   currentRoll.splice(index, 1);
-  //push a number to keptDice
+  keptDice.push(id)
   diceKeptArea.appendChild(dieToBeRemoved)
-  console.log(currentRoll)
+  console.log(keptDice)
+}
+
+function returnDie(evt) {
+  let dieToBeReturned = document.getElementById(evt.target.id);
+  dieToBeReturned.parentNode.removeChild(dieToBeReturned);
+  
+  const id = parseInt(evt.target.id)
+  const index = keptDice.indexOf(id)
+  console.log(index)
+  keptDice.splice(index, 1);
+  currentRoll.push(id)
+  diceArea.appendChild(dieToBeReturned)
+  console.log(keptDice)
 }
 
 
@@ -149,3 +137,33 @@ function clickCount(){
 //create an array that shows all current scoreabledie other turn i am iterating over current roll.
 
 //create an array that shows all current scoreabledie
+
+// function diceRollAnimation(){
+//   clickCount();
+//   diceArea.style.visibility = "visible"
+//   console.log(rollNumber);
+//   if(rollNumber === 1){
+//     currentRoll = []
+//     numberDice.forEach(function(die){
+//       die.classList.add("shake")
+//     });
+//     setTimeout(function(){
+//       numberDice.forEach(function(die){
+//         die.classList.remove("shake");
+//       });
+//       numberDice.forEach(function(die){
+//         const randomIndex = chooseRandomNumber();
+//         const value = randomIndex + 1
+//         die.src = images[randomIndex]
+//         die.setAttribute("id", randomIndex + 1)
+//         console.log("die", die)
+//         currentRoll.push(value)
+//       });
+//     }, 1000);}
+//     else if (rollNumber > 1){
+//       currentRoll.forEach(function(die){
+//         die.classList.add("shake")
+//       }, 1000);
+//   }
+//   // console.log(currentRoll)
+// }
