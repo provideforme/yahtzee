@@ -40,6 +40,7 @@ let rollNumber = 0
 
 /*------------------------ Cached Element References ------------------------*/
 const dice = document.querySelectorAll("img");
+const diceCopy = [...dice];
 const rollButton = document.getElementById("roll-btn");
 const diceArea = document.getElementById("main-zone");
 const diceKeptArea = document.getElementById("keep-zone");
@@ -50,6 +51,7 @@ const d3 = document.querySelector("#d3");
 const d4 = document.querySelector("#d4");
 const d5 = document.querySelector("#d5");
 let numberDice = [d1, d2, d3, d4, d5]
+
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
 diceArea.addEventListener('click', keepDie);
@@ -57,13 +59,15 @@ diceArea.addEventListener('click', keepDie);
 
 /*-------------------------------- Functions --------------------------------*/
 function roll(){
-  clickCount();
   diceRollAnimation();
-
+  
 }
 
 function diceRollAnimation(){
+  clickCount();
   diceArea.style.visibility = "visible"
+
+
   currentRoll = []
   dice.forEach(function(die){
     die.classList.add("shake")
@@ -110,9 +114,10 @@ function clickCount(){
       rollNumber += 1;
       rollButton.removeEventListener('click', roll)
     }
-      
-      console.log(rollNumber);
       }
+
+// make a copy of my dice array
+
 // loop through array
 // if dice === currentRoll push to diceToRoll
 
