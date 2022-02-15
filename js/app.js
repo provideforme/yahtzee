@@ -41,14 +41,14 @@ function roll(){
     diceArea.removeChild(diceArea.lastChild)
   }
   if(currentRoll.length){
-    for (let i = currentRoll.length - 1; i >= 0; i--) {
-
-    }
-    shuffleOrder(currentRoll)
+    const length = currentRoll.length
+    currentRoll = [1,2,3,4,5,6]
+    currentRoll = shuffleOrder(currentRoll)
+    currentRoll = currentRoll.splice(0, length)
     rollAnimation()
   } else {
     currentRoll = [1,2,3,4,5,6]
-    shuffleOrder(currentRoll)
+    currentRoll = shuffleOrder(currentRoll)
     currentRoll.pop()
     rollAnimation()
   }
@@ -80,7 +80,7 @@ function shuffleOrder(arr) {
     arr[i] = arr[j]
     arr[j] = temp
   }
-  currentRoll = arr
+  return arr
 }
 
 
@@ -124,6 +124,7 @@ function clickCount(){
       rollButton.removeEventListener('click', roll)
     }
       }
+
 
 // create a class for the images, dont just use IMG
 // remove class in keepdie, so it doesn't animate.
