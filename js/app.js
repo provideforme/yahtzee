@@ -45,11 +45,13 @@ function roll(){
     currentRoll = [1,2,3,4,5,6]
     currentRoll = shuffleOrder(currentRoll)
     currentRoll = currentRoll.splice(0, length)
+    updateScoreableDie()
     rollAnimation()
   } else {
     currentRoll = [1,2,3,4,5,6]
     currentRoll = shuffleOrder(currentRoll)
     currentRoll.pop()
+    updateScoreableDie()
     rollAnimation()
   }
 }
@@ -87,14 +89,13 @@ function shuffleOrder(arr) {
 function keepDie(evt) {
   let dieToBeRemoved = document.getElementById(evt.target.id);
   dieToBeRemoved.parentNode.removeChild(dieToBeRemoved);
-  
   const id = parseInt(evt.target.id)
   const index = currentRoll.indexOf(id)
   console.log(index)
   currentRoll.splice(index, 1);
   keptDice.push(id)
   diceKeptArea.appendChild(dieToBeRemoved)
-  console.log(keptDice)
+  updateScoreableDie()
 }
 
 function returnDie(evt) {
@@ -107,9 +108,12 @@ function returnDie(evt) {
   keptDice.splice(index, 1);
   currentRoll.push(id)
   diceArea.appendChild(dieToBeReturned)
-  console.log(keptDice)
+  updateScoreableDie()
 }
 
+function updateScoreableDie(){
+  diceInPlay = currentRoll.concat(keptDice)
+}
 
 function clickCount(){
 
@@ -124,7 +128,6 @@ function clickCount(){
       rollButton.removeEventListener('click', roll)
     }
       }
-
 
 // create a class for the images, dont just use IMG
 // remove class in keepdie, so it doesn't animate.
