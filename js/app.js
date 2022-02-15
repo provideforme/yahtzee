@@ -65,25 +65,30 @@ function roll(){
 function diceRollAnimation(){
   clickCount();
   diceArea.style.visibility = "visible"
-
-
-  currentRoll = []
-  numberDice.forEach(function(die){
-    die.classList.add("shake")
-  });
-  setTimeout(function(){
+  console.log(rollNumber);
+  if(rollNumber === 1){
+    currentRoll = []
     numberDice.forEach(function(die){
-      die.classList.remove("shake");
+      die.classList.add("shake")
     });
-    numberDice.forEach(function(die){
-      const randomIndex = chooseRandomNumber();
-      const value = randomIndex + 1
-      die.src = images[randomIndex]
-      die.setAttribute("id", randomIndex + 1)
-      console.log("die", die)
-      currentRoll.push(value)
-    });
-  }, 1000);
+    setTimeout(function(){
+      numberDice.forEach(function(die){
+        die.classList.remove("shake");
+      });
+      numberDice.forEach(function(die){
+        const randomIndex = chooseRandomNumber();
+        const value = randomIndex + 1
+        die.src = images[randomIndex]
+        die.setAttribute("id", randomIndex + 1)
+        console.log("die", die)
+        currentRoll.push(value)
+      });
+    }, 1000);}
+    else if (rollNumber > 1){
+      currentRoll.forEach(function(die){
+        die.classList.add("shake")
+      }, 1000);
+  }
   // console.log(currentRoll)
 }
 
