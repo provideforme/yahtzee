@@ -39,8 +39,7 @@ let rollNumber = 0
 
 
 /*------------------------ Cached Element References ------------------------*/
-const dice = document.querySelectorAll("img");
-const diceCopy = [...dice];
+const dice = document.querySelectorAll(".diceIMG");
 const rollButton = document.getElementById("roll-btn");
 const diceArea = document.getElementById("main-zone");
 const diceKeptArea = document.getElementById("keep-zone");
@@ -94,10 +93,12 @@ function chooseRandomNumber(){
 function keepDie(evt) {
   let dieToBeRemoved = document.getElementById(evt.target.id);
   dieToBeRemoved.parentNode.removeChild(dieToBeRemoved);
-  diceKept.push(evt.target.id)
-  currentRoll.splice(evt.target.id, 1)
-  numberDice.splice(evt.target.id, 1)
+  diceKept.push(dieToBeRemoved);
+  currentRoll.splice(dieToBeRemoved, 1);
+  numberDice.splice(dieToBeRemoved, 1);
+  console.log(dieToBeRemoved);
 
+  
   diceKeptArea.appendChild(evt.target)
 }
 
@@ -116,15 +117,13 @@ function clickCount(){
     }
       }
 
-// make a copy of my dice array
+// create a class for the images, dont just use IMG
+// remove class in keepdie, so it doesn't animate.
 
 // loop through array
 // if dice === currentRoll push to diceToRoll
-
-// if rollCount > 3 cut it
-
-//define the roll count
-
 //remove currentRoll= []
 //keep state (establish turns)
 //write conditional tyhat rolls numberDice, for every other turn i am iterating over current roll.
+
+//create an array that shows all current scoreabledie
