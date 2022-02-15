@@ -39,7 +39,6 @@ let rollNumber = 0
 
 
 /*------------------------ Cached Element References ------------------------*/
-const dice = document.querySelectorAll(".diceIMG");
 const rollButton = document.getElementById("roll-btn");
 const diceArea = document.getElementById("main-zone");
 const diceKeptArea = document.getElementById("keep-zone");
@@ -49,9 +48,8 @@ const d2 = document.querySelector("#d2");
 const d3 = document.querySelector("#d3");
 const d4 = document.querySelector("#d4");
 const d5 = document.querySelector("#d5");
-let numberDice = [d1, d2, d3, d4, d5]
-let diceArray = Array.from(dice)
-console.log(diceArray);
+const diceArray = document.querySelectorAll(".diceIMG")
+let numberDice = Array.from(diceArray)
 
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
@@ -70,16 +68,19 @@ function diceRollAnimation(){
 
 
   currentRoll = []
-  diceArray.forEach(function(die){
+  numberDice.forEach(function(die){
     die.classList.add("shake")
   });
   setTimeout(function(){
-    diceArray.forEach(function(die){
+    numberDice.forEach(function(die){
       die.classList.remove("shake");
     });
     numberDice.forEach(function(die){
-      let value = chooseRandomNumber();
-      die.setAttribute("src", images[value], "value", dieValue[value[1]])
+      const randomIndex = chooseRandomNumber();
+      const value = randomIndex + 1
+      die.src = images[randomIndex]
+      die.setAttribute("id", randomIndex + 1)
+      console.log("die", die)
       currentRoll.push(value)
     });
   }, 1000);
@@ -96,26 +97,23 @@ function keepDie(evt) {
   let dieToBeRemoved = document.getElementById(evt.target.id);
   console.log("dieToBeRemoved: ", dieToBeRemoved);
   dieToBeRemoved.parentNode.removeChild(dieToBeRemoved);
-  diceKept.push(dieToBeRemoved);
+  console.log(dieToBeRemoved.parentNode);
   console.log(
     "currentRoll: ", currentRoll,
     "numberDice: ", numberDice,
-    "diceArray: ", diceArray,
   );
-  console.log(evt.target.id);
-    const id = parseInt(evt.target.id.replace("d", ""))
-  const index = currentRoll.findIndex((num) => num === id)
-  console.log(index);
+  
+  const id = parseInt(evt.target.id.replace("d", ""))
+  const index = currentRoll.indexOf(id)
+  console.log(index)
   currentRoll.splice(index, 1);
-  numberDice.splice(dieToBeRemoved, 1);
-  diceArray.splice(dieToBeRemoved, 1);
-  
+  // const ndIdx = numberDice.indexOf(id);
+  // numberDice.splice(ndIdx, 1);
   console.log(
     "currentRoll: ", currentRoll,
     "numberDice: ", numberDice,
-    "diceArray: ", diceArray,
   );
-  
+
   diceKeptArea.appendChild(dieToBeRemoved)
 }
 
