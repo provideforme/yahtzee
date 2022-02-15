@@ -31,6 +31,8 @@ let diceInPlay = []; //all potential dice
 let currentRoll = [];
 let diceKept = [];
 let diceToRoll = [];
+let count = 0
+let rollNumber = 0
 
 
 
@@ -47,7 +49,7 @@ const d2 = document.querySelector("#d2");
 const d3 = document.querySelector("#d3");
 const d4 = document.querySelector("#d4");
 const d5 = document.querySelector("#d5");
-const numberDice = [d1, d2, d3, d4, d5]
+let numberDice = [d1, d2, d3, d4, d5]
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
 diceArea.addEventListener('click', keepDie);
@@ -55,7 +57,9 @@ diceArea.addEventListener('click', keepDie);
 
 /*-------------------------------- Functions --------------------------------*/
 function roll(){
+  clickCount();
   diceRollAnimation();
+
 }
 
 function diceRollAnimation(){
@@ -88,10 +92,34 @@ function keepDie(evt) {
   dieToBeRemoved.parentNode.removeChild(dieToBeRemoved);
   diceKept.push(evt.target.id)
   currentRoll.splice(evt.target.id, 1)
+  numberDice.splice(evt.target.id, 1)
+
   diceKeptArea.appendChild(evt.target)
 }
 
+
+function clickCount(){
+
+    if(count === 0 || count === 1){
+      count += 1;
+      rollNumber += 1;
+    } else if (
+      count === 2
+      )
+      {
+      rollNumber += 1;
+      rollButton.removeEventListener('click', roll)
+    }
+      
+      console.log(rollNumber);
+      }
 // loop through array
 // if dice === currentRoll push to diceToRoll
 
 // if rollCount > 3 cut it
+
+//define the roll count
+
+//remove currentRoll= []
+//keep state (establish turns)
+//write conditional tyhat rolls numberDice, for every other turn i am iterating over current roll.
