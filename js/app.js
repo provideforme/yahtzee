@@ -1,35 +1,19 @@
 /*-------------------------------- Constants --------------------------------*/
-let dieOne =  "../images/Dice-1-b.svg"
-let dieTwo= "../images/Dice-2-b.svg"
-let dieThree = "../images/Dice-3-b.svg"
-let dieFour = "../images/Dice-4-b.svg"
-let dieFive = "../images/Dice-5-b.svg"
-let dieSix = "../images/Dice-6a-b.svg"
-
-let dieValue = {
-  dieOne: 1,
-  dieTwo: 2,
-  dieThree: 3,
-  dieFour: 4,
-  dieFive: 5,
-  dieSix: 6,
+const diceObject = {
+  1: "../images/Dice-1-b.svg",
+  2: "../images/Dice-2-b.svg",
+  3: "../images/Dice-3-b.svg",
+  4: "../images/Dice-4-b.svg",
+  5: "../images/Dice-5-b.svg",
+  6: "../images/Dice-6a-b.svg"
 }
-
-let images = [
-  dieOne,
-  dieTwo,
-  dieThree,
-  dieFour,
-  dieFive,
-  dieSix
-];
 
 //key value pairs. each image needs a value.
 
 /*-------------------------------- Variables --------------------------------*/
 let diceInPlay = []; //all potential dice
 let currentRoll = [];
-let diceKept = [];
+let keptDice = [];
 let diceToRoll = [];
 let count = 0
 let rollNumber = 0
@@ -40,16 +24,8 @@ let rollNumber = 0
 
 /*------------------------ Cached Element References ------------------------*/
 const rollButton = document.getElementById("roll-btn");
-const diceArea = document.getElementById("main-zone");
+const diceArea = document.getElementById("dice-area");
 const diceKeptArea = document.getElementById("keep-zone");
-
-const d1 = document.querySelector("#d1");
-const d2 = document.querySelector("#d2");
-const d3 = document.querySelector("#d3");
-const d4 = document.querySelector("#d4");
-const d5 = document.querySelector("#d5");
-const diceArray = document.querySelectorAll(".diceIMG")
-let numberDice = Array.from(diceArray)
 
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
@@ -58,68 +34,92 @@ diceArea.addEventListener('click', keepDie);
 
 /*-------------------------------- Functions --------------------------------*/
 function roll(){
-  diceRollAnimation();
-  
-}
-
-function diceRollAnimation(){
-  clickCount();
-  diceArea.style.visibility = "visible"
-  console.log(rollNumber);
-  if(rollNumber === 1){
-    currentRoll = []
-    numberDice.forEach(function(die){
-      die.classList.add("shake")
-    });
-    setTimeout(function(){
-      numberDice.forEach(function(die){
-        die.classList.remove("shake");
-      });
-      numberDice.forEach(function(die){
-        const randomIndex = chooseRandomNumber();
-        const value = randomIndex + 1
-        die.src = images[randomIndex]
-        die.setAttribute("id", randomIndex + 1)
-        console.log("die", die)
-        currentRoll.push(value)
-      });
-    }, 1000);}
-    else if (rollNumber > 1){
-      currentRoll.forEach(function(die){
-        die.classList.add("shake")
-      }, 1000);
+  clickCount()
+  if(rollNumber > 3) return
+  while(diceArea.firstChild){
+    diceArea.removeChild(diceArea.lastChild)
   }
-  // console.log(currentRoll)
+  if(currentRoll.length){
+    shuffleOrder(currentRoll)
+    rollAnimation()
+  } else {
+    currentRoll = [1,2,3,4,5,6]
+    shuffleOrder(currentRoll)
+    currentRoll.pop()
+    rollAnimation()
+  }
 }
 
-function chooseRandomNumber(){
-  let number = Math.floor(Math.random() * 6);
+function rollAnimation(){
+  currentRoll.forEach(die => createDie(die))
+  setTimeout(function(){
+    currentRoll.forEach(function(die){
+      document.getElementById(die).classList.remove("shake")
+    });
+  }, 1000);
+}
 
-  return number
-} 
+function createDie(value){
+  const die = document.createElement("img")
+  die.classList.add("diceIMG", "shake", "die")
+  die.id = value
+  die.src = diceObject[value]
+  diceArea.appendChild(die)
+}
+
+
+function shuffleOrder(arr) {
+  // Fisher-Yates - Source: Instructors
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    const temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+  }
+  currentRoll = arr
+}
+
+// function diceRollAnimation(){
+//   clickCount();
+//   diceArea.style.visibility = "visible"
+//   console.log(rollNumber);
+//   if(rollNumber === 1){
+//     currentRoll = []
+//     numberDice.forEach(function(die){
+//       die.classList.add("shake")
+//     });
+//     setTimeout(function(){
+//       numberDice.forEach(function(die){
+//         die.classList.remove("shake");
+//       });
+//       numberDice.forEach(function(die){
+//         const randomIndex = chooseRandomNumber();
+//         const value = randomIndex + 1
+//         die.src = images[randomIndex]
+//         die.setAttribute("id", randomIndex + 1)
+//         console.log("die", die)
+//         currentRoll.push(value)
+//       });
+//     }, 1000);}
+//     else if (rollNumber > 1){
+//       currentRoll.forEach(function(die){
+//         die.classList.add("shake")
+//       }, 1000);
+//   }
+//   // console.log(currentRoll)
+// }
 
 function keepDie(evt) {
   let dieToBeRemoved = document.getElementById(evt.target.id);
-  console.log("dieToBeRemoved: ", dieToBeRemoved);
   dieToBeRemoved.parentNode.removeChild(dieToBeRemoved);
-  console.log(dieToBeRemoved.parentNode);
-  console.log(
-    "currentRoll: ", currentRoll,
-    "numberDice: ", numberDice,
-  );
   
-  const id = parseInt(evt.target.id.replace("d", ""))
+  const id = parseInt(evt.target.id)
   const index = currentRoll.indexOf(id)
   console.log(index)
   currentRoll.splice(index, 1);
-  // const ndIdx = numberDice.indexOf(id);
-  // numberDice.splice(ndIdx, 1);
-  console.log(
-    "currentRoll: ", currentRoll,
-    "numberDice: ", numberDice,
-  );
-
+  //push a number to keptDice
   diceKeptArea.appendChild(dieToBeRemoved)
+  console.log(currentRoll)
 }
 
 
