@@ -26,11 +26,13 @@ let rollNumber = 0
 const rollButton = document.getElementById("roll-btn");
 const diceArea = document.getElementById("dice-area");
 const diceKeptArea = document.getElementById("keep-zone");
+const scoreSheet = document.getElementById("score-sheet")
 
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
 diceArea.addEventListener('click', keepDie);
 diceKeptArea.addEventListener('click', returnDie);
+scoreSheet.addEventListener('click', changeScore)
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -140,8 +142,7 @@ let potentialScoreArray = [];
 for (let i = 1; i < 14; i++) {
     potentialScoreArray[i] = scoreSheetArray[i].nextSibling.nextSibling;
   }
-  
-  console.log(potentialScoreArray)
+
 function isInArray(value, array) {
   return array.indexOf(value) > -1;
   }
@@ -153,18 +154,10 @@ function getTotal () {
   return arrayTotal
 }
 
-// create a class for the images, dont just use IMG
-// remove class in keepdie, so it doesn't animate.
+function changeScore(params) {
+  
+}
 
-// loop through array
-// if dice === currentRoll push to diceToRoll
-//remove currentRoll= []
-//keep state (establish turns)
-//write conditional tyhat rolls numberDice, for every other turn i am iterating over current roll.
-
-//create an array that shows all current scoreabledie other turn i am iterating over current roll.
-
-//create an array that shows all current scoreabledie
 
 // function diceRollAnimation(){
 //   clickCount();
