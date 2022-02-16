@@ -97,6 +97,7 @@ function keepDie(evt) {
   keptDice.push(id)
   diceKeptArea.appendChild(dieToBeRemoved)
   updateScoreableDie()
+  console.log(getTotal())
 }
 
 function returnDie(evt) {
@@ -139,12 +140,19 @@ let potentialScoreArray = [];
 for (let i = 1; i < 14; i++) {
     potentialScoreArray[i] = scoreSheetArray[i].nextSibling.nextSibling;
   }
-
+  
+  console.log(potentialScoreArray)
 function isInArray(value, array) {
   return array.indexOf(value) > -1;
   }
 
-console.log(scoreSheetArray)
+function getTotal () {
+  let arrayTotal = diceInPlay.reduce(function(previousValue, currentValue) {
+    return previousValue + currentValue;
+  });
+  return arrayTotal
+}
+
 // create a class for the images, dont just use IMG
 // remove class in keepdie, so it doesn't animate.
 
