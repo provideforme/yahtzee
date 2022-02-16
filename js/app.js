@@ -83,7 +83,6 @@ function shuffleOrder(arr) {
     const temp = arr[i]
     arr[i] = arr[j]
     arr[j] = temp
-    console.log(arr)
   }
   return arr
 }
@@ -94,12 +93,10 @@ function keepDie(evt) {
   dieToBeRemoved.parentNode.removeChild(dieToBeRemoved);
   const id = parseInt(evt.target.id)
   const index = currentRoll.indexOf(id)
-  console.log(index)
   currentRoll.splice(index, 1);
   keptDice.push(id)
   diceKeptArea.appendChild(dieToBeRemoved)
   updateScoreableDie()
-  console.log(getTotal())
 }
 
 function returnDie(evt) {
@@ -133,32 +130,41 @@ function clickCount(){
     }
       }
 
-let scoreSheetArray = [];
-for (let i = 1; i < 14; i++) {
-  scoreSheetArray[i] = document.getElementById(i + "-score");
+      
+      function isInArray(value, array) {
+        return array.indexOf(value) > -1;
+      }
+      
+      function getTotal () {
+        let arrayTotal = diceInPlay.reduce(function(previousValue, currentValue) {
+          return previousValue + currentValue;
+        });
+        return arrayTotal
+      }
+      
+      function changeScore(evt) {
+    let catNum = parseInt(evt.target.id)
+    let elgibleNums =  diceInPlay.filter(num => num === catNum)
+    sum = elgibleNums.reduce((prev, cur) => prev + cur, 0)
+    let cell = catNum + "-sum"
+    const banana = document.getElementById(cell)
+    banana.innerText = sum
   }
 
-let potentialScoreArray = [];
-for (let i = 1; i < 14; i++) {
-    potentialScoreArray[i] = scoreSheetArray[i].nextSibling.nextSibling;
-  }
-
-function isInArray(value, array) {
-  return array.indexOf(value) > -1;
-  }
-
-function getTotal () {
-  let arrayTotal = diceInPlay.reduce(function(previousValue, currentValue) {
-    return previousValue + currentValue;
-  });
-  return arrayTotal
-}
-
-function changeScore(params) {
-  
-}
 
 
+
+// values = picks.reduce((obj, dice) => {
+//   if (obj[dice]) {
+//     onj[dice]++
+//   }else {
+//   obj[dice] = 1
+//   }
+//   return obj
+// })
+
+// Element.innertext = 0
+// player.category = 0
 // function diceRollAnimation(){
 //   clickCount();
 //   diceArea.style.visibility = "visible"
