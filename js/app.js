@@ -44,15 +44,15 @@ function roll(){
   }
   if(currentRoll.length){
     const length = currentRoll.length
-    currentRoll = [1,2,3,4,5,6]
+    currentRoll = [1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,6]
     currentRoll = shuffleOrder(currentRoll)
     currentRoll = currentRoll.splice(0, length)
     updateScoreableDie()
     rollAnimation()
   } else {
-    currentRoll = [1,2,3,4,5,6]
+    currentRoll = [1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,6]
     currentRoll = shuffleOrder(currentRoll)
-    currentRoll.pop()
+    currentRoll = currentRoll.splice(0, 5)
     updateScoreableDie()
     rollAnimation()
   }
@@ -61,9 +61,9 @@ function roll(){
 function rollAnimation(){
   currentRoll.forEach(die => createDie(die))
   setTimeout(function(){
-    currentRoll.forEach(function(die){
-      document.getElementById(die).classList.remove("shake")
-    });
+    for(let i = 0; i < diceArea.childNodes.length; i++ ){
+      diceArea.childNodes[i].classList.remove("shake")
+    }
   }, 1000);
 }
 
