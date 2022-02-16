@@ -81,6 +81,7 @@ function shuffleOrder(arr) {
     const temp = arr[i]
     arr[i] = arr[j]
     arr[j] = temp
+    console.log(arr)
   }
   return arr
 }
@@ -129,6 +130,21 @@ function clickCount(){
     }
       }
 
+let scoreSheetArray = [];
+for (let i = 1; i < 14; i++) {
+  scoreSheetArray[i] = document.getElementById(i + "-score");
+  }
+
+let potentialScoreArray = [];
+for (let i = 1; i < 14; i++) {
+    potentialScoreArray[i] = scoreSheetArray[i].nextSibling.nextSibling;
+  }
+
+function isInArray(value, array) {
+  return array.indexOf(value) > -1;
+  }
+
+console.log(scoreSheetArray)
 // create a class for the images, dont just use IMG
 // remove class in keepdie, so it doesn't animate.
 

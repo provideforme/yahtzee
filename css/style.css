@@ -72,3 +72,16 @@ body {
     transform: rotate(8deg);
   }
 }
+
+#scoreSheet {
+
+  clear: both;
+  margin-bottom: 30px; }
+
+  table {
+    background-color: white;
+    table-layout: auto; 
+    width: 150px;
+  }
+
+  
