@@ -11,10 +11,9 @@ const diceObject = {
 //key value pairs. each image needs a value.
 
 /*-------------------------------- Variables --------------------------------*/
-let diceInPlay = []; //all potential dice
+let diceInPlay = [];
 let currentRoll = [];
 let keptDice = [];
-let diceToRoll = [];
 let count = 0
 let rollNumber = 0
 
@@ -27,17 +26,18 @@ const rollButton = document.getElementById("roll-btn");
 const diceArea = document.getElementById("dice-area");
 const diceKeptArea = document.getElementById("keep-zone");
 const scoreSheet = document.getElementById("score-sheet")
+const potentialScore = document.querySelector("potential-score")
 
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
 diceArea.addEventListener('click', keepDie);
 diceKeptArea.addEventListener('click', returnDie);
-scoreSheet.addEventListener('click', changeScore)
 
 
 /*-------------------------------- Functions --------------------------------*/
 function roll(){
   clickCount()
+  scoreSheet.addEventListener('click', changeScore)
   if(rollNumber > 3) return
   while(diceArea.firstChild){
     diceArea.removeChild(diceArea.lastChild)
@@ -118,38 +118,68 @@ function updateScoreableDie(){
 
 function clickCount(){
 
-    if(count === 0 || count === 1){
-      count += 1;
-      rollNumber += 1;
-    } else if (
-      count === 2
-      )
-      {
-      rollNumber += 1;
-      rollButton.removeEventListener('click', roll)
-    }
-      }
-
-      
-      function isInArray(value, array) {
-        return array.indexOf(value) > -1;
-      }
-      
-      function getTotal () {
-        let arrayTotal = diceInPlay.reduce(function(previousValue, currentValue) {
-          return previousValue + currentValue;
-        });
-        return arrayTotal
-      }
-      
-      function changeScore(evt) {
-    let catNum = parseInt(evt.target.id)
-    let elgibleNums =  diceInPlay.filter(num => num === catNum)
-    sum = elgibleNums.reduce((prev, cur) => prev + cur, 0)
-    let cell = catNum + "-sum"
-    const banana = document.getElementById(cell)
-    banana.innerText = sum
+  if(count === 0 || count === 1){
+    count += 1;
+    rollNumber += 1;
+  } else if (
+    count === 2
+    )
+    {
+    rollNumber += 1;
+    rollButton.removeEventListener('click', roll)
   }
+    }
+
+    
+function isInArray(value, array) {
+  return array.indexOf(value) > -1;
+}
+      
+function getTotal () {
+  let arrayTotal = diceInPlay.reduce(function(previousValue, currentValue) {
+    return previousValue + currentValue;
+  });
+  return arrayTotal
+}
+      
+function changeScore(evt) {
+  
+  if(potentialScore === null){
+    let cellNum = parseInt(evt.target.id)
+
+    let scoreableNums =  diceInPlay.filter(num => num === cellNum)
+    
+    sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
+
+    let scoreableCell = cellNum + "-sum"
+
+    const keepScore = document.getElementById(scoreableCell)
+
+    keepScore.innerText = sum
+
+    resetRoll()
+  }
+}
+
+  function resetRoll(){
+    diceInPlay = []
+    currentRoll = []
+    keptDice = []
+    count = 0
+    rollNumber = 0
+    scoreSheet.removeEventListener('click', changeScore)
+    rollButton.addEventListener('click', roll);
+    removeAllDice(diceArea)
+    removeAllDice(diceKeptArea)
+  }
+
+function removeAllDice(parent) {
+  while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+}
+
+
 
 
 
