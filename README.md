@@ -5,7 +5,9 @@
 
 Hello everybody! Thank you for playing my take on the classic Milton Bradley dice game: Yahtzee! This was my first project at General Assembly. 
 
-# [PLAY IT HERE](https://provideforme.github.io/yahtzee/)
+***
+
+## [PLAY IT HERE](https://provideforme.github.io/yahtzee/)
 
 ***
 
