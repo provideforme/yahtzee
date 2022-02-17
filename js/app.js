@@ -27,6 +27,7 @@ const diceArea = document.getElementById("dice-area");
 const diceKeptArea = document.getElementById("keep-zone");
 const scoreSheet = document.getElementById("score-sheet")
 const potentialScore = document.querySelector("potential-score")
+const potentialScoreLower = document.querySelector("potential-score-lower")
 
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
@@ -143,23 +144,45 @@ function getTotal () {
 }
       
 function changeScore(evt) {
-  
-  if(potentialScore === null){
+
     let cellNum = parseInt(evt.target.id)
+  
+    scoreableCell = cellNum + "-sum"
 
     let scoreableNums =  diceInPlay.filter(num => num === cellNum)
+
+    console.log(scoreableNums)
     
-    sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
-
-    let scoreableCell = cellNum + "-sum"
-
     const keepScore = document.getElementById(scoreableCell)
+    console.log(scoreableCell)
 
-    keepScore.innerText = sum
+    if(scoreableNums > 2 && scoreableCell === "7-sum"){
 
-    resetRoll()
+      sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+
+      console.log(keepScore)
+
+      keepScore.innerText = sum
+
+      // repeat for 4 of a kind and yahtzee
+      //similar conditions for full house
+      //sum = diceInPlay.reduce((prev, cur) => prev + cur, 0) should just be how to score chance
+      //use isInArray function with an || to to make sure both possibilities are there for large straight and all 3 are there for small straight.
+
+
+
+    } else {
+
+      sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
+      
+    
+      keepScore.innerText = sum
+
   }
+  resetRoll()
 }
+
+
 
   function resetRoll(){
     diceInPlay = []
