@@ -144,38 +144,44 @@ function getTotal () {
 }
       
 function changeScore(evt) {
+    let values
 
     let cellNum = parseInt(evt.target.id)
   
     scoreableCell = cellNum + "-sum"
 
     let scoreableNums =  diceInPlay.filter(num => num === cellNum)
-
-    console.log(scoreableNums)
     
     const keepScore = document.getElementById(scoreableCell)
     console.log(scoreableCell)
+    
+    if(!scoreableNums.length && scoreableCell === "7-sum"){
+      values = diceInPlay.reduce((obj, dice) => {
+        if (obj[dice]) {
+          obj[dice]++
+        }else {
+        obj[dice] = 1
+        }
+        return obj
+      }, {})
+      
+      let obVal = Object.values(values)
+      if(obVal.includes(3)){
 
-    if(scoreableNums > 2 && scoreableCell === "7-sum"){
-
-      sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
-
-      console.log(keepScore)
-
-      keepScore.innerText = sum
-
-      // repeat for 4 of a kind and yahtzee
-      //similar conditions for full house
-      //sum = diceInPlay.reduce((prev, cur) => prev + cur, 0) should just be how to score chance
-      //use isInArray function with an || to to make sure both possibilities are there for large straight and all 3 are there for small straight.
-
-
-
+        sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+        
+        keepScore.innerText = sum
+      } else {
+        keepScore.innerText = 0
+      }
+      
+      
     } else {
+      
 
       sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
       
-    
+      
       keepScore.innerText = sum
 
   }
@@ -207,14 +213,7 @@ function removeAllDice(parent) {
 
 
 
-// values = picks.reduce((obj, dice) => {
-//   if (obj[dice]) {
-//     onj[dice]++
-//   }else {
-//   obj[dice] = 1
-//   }
-//   return obj
-// })
+
 
 // Element.innertext = 0
 // player.category = 0
