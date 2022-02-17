@@ -144,98 +144,116 @@ function getTotal () {
 }
       
 function changeScore(evt) {
-    let values
+  let values
 
-    let cellNum = parseInt(evt.target.id)
+  let cellNum = parseInt(evt.target.id)
+
+  scoreableCell = cellNum + "-sum"
+
+  let scoreableNums =  diceInPlay.filter(num => num === cellNum)
   
-    scoreableCell = cellNum + "-sum"
-
-    let scoreableNums =  diceInPlay.filter(num => num === cellNum)
+  const keepScore = document.getElementById(scoreableCell)
+  console.log(scoreableCell)
+  
+  if(!scoreableNums.length && scoreableCell === "7-sum"){
+    values = diceInPlay.reduce((obj, dice) => {
+      if (obj[dice]) {
+        obj[dice]++
+      }else {
+      obj[dice] = 1
+      }
+      return obj
+    }, {})
     
-    const keepScore = document.getElementById(scoreableCell)
-    console.log(scoreableCell)
+    let obVal = Object.values(values)
+    if(obVal.includes(3)){
+
+      sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+      
+      keepScore.innerText = sum
+    } else {
+      keepScore.innerText = 0
+    }
+  }
+
+  if(!scoreableNums.length && scoreableCell === "8-sum"){
+    values = diceInPlay.reduce((obj, dice) => {
+      if (obj[dice]) {
+        obj[dice]++
+      }else {
+      obj[dice] = 1
+      }
+      return obj
+    }, {})
     
-    if(!scoreableNums.length && scoreableCell === "7-sum"){
-      values = diceInPlay.reduce((obj, dice) => {
-        if (obj[dice]) {
-          obj[dice]++
-        }else {
-        obj[dice] = 1
-        }
-        return obj
-      }, {})
-      
-      let obVal = Object.values(values)
-      if(obVal.includes(3)){
+    let obVal = Object.values(values)
+    if(obVal.includes(4)){
 
-        sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
-        
-        keepScore.innerText = sum
-      } else {
-        keepScore.innerText = 0
-      }
+      sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+      
+      keepScore.innerText = sum
+    } else {
+      keepScore.innerText = 0
     }
+  }
 
-    if(!scoreableNums.length && scoreableCell === "8-sum"){
-      values = diceInPlay.reduce((obj, dice) => {
-        if (obj[dice]) {
-          obj[dice]++
-        }else {
-        obj[dice] = 1
-        }
-        return obj
-      }, {})
-      
-      let obVal = Object.values(values)
-      if(obVal.includes(4)){
-
-        sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
-        
-        keepScore.innerText = sum
-      } else {
-        keepScore.innerText = 0
+  if(!scoreableNums.length && scoreableCell === "9-sum"){
+    values = diceInPlay.reduce((obj, dice) => {
+      if (obj[dice]) {
+        obj[dice]++
+      }else {
+      obj[dice] = 1
       }
-    }
-
-    if(!scoreableNums.length && scoreableCell === "9-sum"){
-      values = diceInPlay.reduce((obj, dice) => {
-        if (obj[dice]) {
-          obj[dice]++
-        }else {
-        obj[dice] = 1
-        }
-        return obj
-      }, {})
-      
-      let obVal = Object.values(values)
-
-      if(obVal.includes(3) && obVal.includes(2)){
-        keepScore.innerText = 25
-      } else {
-        keepScore.innerText = 0
-      }
-    }  
+      return obj
+    }, {})
     
-    if(!scoreableNums.length && scoreableCell === "10-sum"){
-      values = diceInPlay.reduce((obj, dice) => {
-        if (obj[dice]) {
-          obj[dice]++
-        }else {
-        obj[dice] = 1
-        }
-        return obj
-      }, {})
-      
-      let obVal = Object.values(values)
+    let obVal = Object.values(values)
 
-      if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
-        keepScore.innerText = 30
-      } else {
-        keepScore.innerText = 0
-      }
+    if(obVal.includes(3) && obVal.includes(2)){
+      keepScore.innerText = 25
+    } else {
+      keepScore.innerText = 0
     }
+  }  
+  
+  if(!scoreableNums.length && scoreableCell === "10-sum"){
+    values = diceInPlay.reduce((obj, dice) => {
+      if (obj[dice]) {
+        obj[dice]++
+      }else {
+      obj[dice] = 1
+      }
+      return obj
+    }, {})
+    
+    let obVal = Object.values(values)
 
-    if(!scoreableNums.length && scoreableCell === "11-sum"){
+    if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
+      keepScore.innerText = 30
+    } else {
+      keepScore.innerText = 0
+    }
+  }
+
+  if(!scoreableNums.length && scoreableCell === "11-sum"){
+    values = diceInPlay.reduce((obj, dice) => {
+      if (obj[dice]) {
+        obj[dice]++
+      }else {
+      obj[dice] = 1
+      }
+      return obj
+    }, {})
+    
+    let obVal = Object.values(values)
+
+    if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
+      keepScore.innerText = 40
+    } else {
+      keepScore.innerText = 0
+    }
+  }  
+    if(!scoreableNums.length && scoreableCell === "12-sum"){
       values = diceInPlay.reduce((obj, dice) => {
         if (obj[dice]) {
           obj[dice]++
@@ -246,16 +264,21 @@ function changeScore(evt) {
       }, {})
       
       let obVal = Object.values(values)
-
-      if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
-        keepScore.innerText = 40
+  
+      if(obVal.includes(5)){
+        keepScore.innerText = 50
       } else {
         keepScore.innerText = 0
-      }
-          
+      }    
+    }
+    
+  if(!scoreableNums.length && scoreableCell === "13-sum"){
+    sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+      
+    keepScore.innerText = sum
+      
   } else {
       
-
     sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
     
     
