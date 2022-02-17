@@ -174,15 +174,54 @@ function changeScore(evt) {
       } else {
         keepScore.innerText = 0
       }
+    }
+
+    if(!scoreableNums.length && scoreableCell === "8-sum"){
+      values = diceInPlay.reduce((obj, dice) => {
+        if (obj[dice]) {
+          obj[dice]++
+        }else {
+        obj[dice] = 1
+        }
+        return obj
+      }, {})
       
+      let obVal = Object.values(values)
+      if(obVal.includes(4)){
+
+        sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+        
+        keepScore.innerText = sum
+      } else {
+        keepScore.innerText = 0
+      }
+    }
+
+    if(!scoreableNums.length && scoreableCell === "9-sum"){
+      values = diceInPlay.reduce((obj, dice) => {
+        if (obj[dice]) {
+          obj[dice]++
+        }else {
+        obj[dice] = 1
+        }
+        return obj
+      }, {})
       
-    } else {
+      let obVal = Object.values(values)
+
+      if(obVal.includes(3) && obVal.includes(2)){
+        keepScore.innerText = 25
+      } else {
+        keepScore.innerText = 0
+      }
+    
+  } else {
       
 
-      sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
-      
-      
-      keepScore.innerText = sum
+    sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
+    
+    
+    keepScore.innerText = sum
 
   }
   resetRoll()
@@ -190,17 +229,17 @@ function changeScore(evt) {
 
 
 
-  function resetRoll(){
-    diceInPlay = []
-    currentRoll = []
-    keptDice = []
-    count = 0
-    rollNumber = 0
-    scoreSheet.removeEventListener('click', changeScore)
-    rollButton.addEventListener('click', roll);
-    removeAllDice(diceArea)
-    removeAllDice(diceKeptArea)
-  }
+function resetRoll(){
+  diceInPlay = []
+  currentRoll = []
+  keptDice = []
+  count = 0
+  rollNumber = 0
+  scoreSheet.removeEventListener('click', changeScore)
+  rollButton.addEventListener('click', roll);
+  removeAllDice(diceArea)
+  removeAllDice(diceKeptArea)
+}
 
 function removeAllDice(parent) {
   while (parent.firstChild) {
