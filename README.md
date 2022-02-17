@@ -11,7 +11,9 @@ Hello everybody! Thank you for playing my take on the classic Milton Bradley dic
 
 ## How To Play 📖
 
-[How To Play Yahtzee]()
+Click [here](https://github.com/provideforme/yahtzee/blob/main/HOWTOPLAY.md) to go to the HOW TO PLAY document.
+
+***
 
 ## Languages Used 🌐
 
