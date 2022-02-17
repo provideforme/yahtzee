@@ -47,9 +47,11 @@ YAHTZEE® With Buddies Dice Game - Apps on Google Play as it's favicon. Found on
 * format score sheet similar to actual Yahtzee scoresheet
 * display a congratulations message when Yahtzee is rolled
 * Write a README for rules and scoring
-* Include button that pops up rules
+* Include button that pops up rules 
 * Include a button that pops up scoring
+* Make the game mobile responsive
 * Update fonts
 * Temporarily disable click until roll function completes
+* Add Yahtzee bonus and Joker Scoring
 
 ***

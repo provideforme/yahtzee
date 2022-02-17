@@ -233,7 +233,25 @@ function changeScore(evt) {
       } else {
         keepScore.innerText = 0
       }
-    
+    }
+
+    if(!scoreableNums.length && scoreableCell === "11-sum"){
+      values = diceInPlay.reduce((obj, dice) => {
+        if (obj[dice]) {
+          obj[dice]++
+        }else {
+        obj[dice] = 1
+        }
+        return obj
+      }, {})
+      
+      let obVal = Object.values(values)
+
+      if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
+        keepScore.innerText = 40
+      } else {
+        keepScore.innerText = 0
+      }
           
   } else {
       
