@@ -132,217 +132,188 @@ function clickCount(){
     }
 
     
-function isInArray(value, array) {
-  return array.indexOf(value) > -1;
-}
+    function changeScore(evt) {
+      let values
       
-function getTotal () {
-  let arrayTotal = diceInPlay.reduce(function(previousValue, currentValue) {
-    return previousValue + currentValue;
-  });
-  return arrayTotal
-}
+      let cellNum = parseInt(evt.target.id)
       
-function changeScore(evt) {
-  let values
-
-  let cellNum = parseInt(evt.target.id)
-
-  scoreableCell = cellNum + "-sum"
-
-  let scoreableNums =  diceInPlay.filter(num => num === cellNum)
-  
-  const keepScore = document.getElementById(scoreableCell)
-  console.log(scoreableCell)
-  
-  if(!scoreableNums.length && scoreableCell === "7-sum"){
-    values = diceInPlay.reduce((obj, dice) => {
-      if (obj[dice]) {
-        obj[dice]++
-      }else {
-      obj[dice] = 1
-      }
-      return obj
-    }, {})
-    
-    let obVal = Object.values(values)
-    if(obVal.includes(3)){
-
-      sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+      scoreableCell = cellNum + "-sum"
       
-      keepScore.innerText = sum
-    } else {
-      keepScore.innerText = 0
-    }
-  }
-
-  if(!scoreableNums.length && scoreableCell === "8-sum"){
-    values = diceInPlay.reduce((obj, dice) => {
-      if (obj[dice]) {
-        obj[dice]++
-      }else {
-      obj[dice] = 1
-      }
-      return obj
-    }, {})
-    
-    let obVal = Object.values(values)
-    if(obVal.includes(4)){
-
-      sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+      let scoreableNums =  diceInPlay.filter(num => num === cellNum)
       
-      keepScore.innerText = sum
-    } else {
-      keepScore.innerText = 0
-    }
-  }
-
-  if(!scoreableNums.length && scoreableCell === "9-sum"){
-    values = diceInPlay.reduce((obj, dice) => {
-      if (obj[dice]) {
-        obj[dice]++
-      }else {
-      obj[dice] = 1
-      }
-      return obj
-    }, {})
-    
-    let obVal = Object.values(values)
-
-    if(obVal.includes(3) && obVal.includes(2)){
-      keepScore.innerText = 25
-    } else {
-      keepScore.innerText = 0
-    }
-  }  
-  
-  if(!scoreableNums.length && scoreableCell === "10-sum"){
-    values = diceInPlay.reduce((obj, dice) => {
-      if (obj[dice]) {
-        obj[dice]++
-      }else {
-      obj[dice] = 1
-      }
-      return obj
-    }, {})
-    
-    let obVal = Object.values(values)
-
-    if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
-      keepScore.innerText = 30
-    } else {
-      keepScore.innerText = 0
-    }
-  }
-
-  if(!scoreableNums.length && scoreableCell === "11-sum"){
-    values = diceInPlay.reduce((obj, dice) => {
-      if (obj[dice]) {
-        obj[dice]++
-      }else {
-      obj[dice] = 1
-      }
-      return obj
-    }, {})
-    
-    let obVal = Object.values(values)
-
-    if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
-      keepScore.innerText = 40
-    } else {
-      keepScore.innerText = 0
-    }
-  }  
-    if(!scoreableNums.length && scoreableCell === "12-sum"){
-      values = diceInPlay.reduce((obj, dice) => {
-        if (obj[dice]) {
-          obj[dice]++
-        }else {
-        obj[dice] = 1
-        }
-        return obj
-      }, {})
+      const keepScore = document.getElementById(scoreableCell)
+      console.log(scoreableCell)
       
-      let obVal = Object.values(values)
-  
-      if(obVal.includes(5)){
-        keepScore.innerText = 50
+      if(!scoreableNums.length && scoreableCell === "7-sum"){
+        values = diceInPlay.reduce((obj, dice) => {
+          if (obj[dice]) {
+            obj[dice]++
+          }else {
+            obj[dice] = 1
+          }
+          return obj
+        }, {})
+        
+        let obVal = Object.values(values)
+        if(obVal.includes(3)){
+          
+          sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+          
+          keepScore.innerText = sum
+        } else {
+          keepScore.innerText = 0
+        } 
+      
+    
       } else {
-        keepScore.innerText = 0
-      }    
+        
+        sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
+        
+        
+        keepScore.innerText = sum
+        
+      }
+      resetRoll()
     }
     
-  if(!scoreableNums.length && scoreableCell === "13-sum"){
-    sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
-      
-    keepScore.innerText = sum
-      
-  } else {
-      
-    sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
     
     
-    keepScore.innerText = sum
-
-  }
-  resetRoll()
-}
-
-
-
-function resetRoll(){
-  diceInPlay = []
-  currentRoll = []
-  keptDice = []
-  count = 0
-  rollNumber = 0
-  scoreSheet.removeEventListener('click', changeScore)
-  rollButton.addEventListener('click', roll);
-  removeAllDice(diceArea)
-  removeAllDice(diceKeptArea)
-}
-
-function removeAllDice(parent) {
-  while (parent.firstChild) {
-      parent.removeChild(parent.firstChild);
+    function resetRoll(){
+      diceInPlay = []
+      currentRoll = []
+      keptDice = []
+      count = 0
+      rollNumber = 0
+      scoreSheet.removeEventListener('click', changeScore)
+      rollButton.addEventListener('click', roll);
+      removeAllDice(diceArea)
+      removeAllDice(diceKeptArea)
     }
-}
-
-
-
-
-
-
-
-
-// Element.innertext = 0
-// player.category = 0
-// function diceRollAnimation(){
-//   clickCount();
-//   diceArea.style.visibility = "visible"
-//   console.log(rollNumber);
-//   if(rollNumber === 1){
-//     currentRoll = []
-//     numberDice.forEach(function(die){
-//       die.classList.add("shake")
-//     });
-//     setTimeout(function(){
-//       numberDice.forEach(function(die){
-//         die.classList.remove("shake");
-//       });
-//       numberDice.forEach(function(die){
-//         const randomIndex = chooseRandomNumber();
-//         const value = randomIndex + 1
-//         die.src = images[randomIndex]
-//         die.setAttribute("id", randomIndex + 1)
-//         console.log("die", die)
-//         currentRoll.push(value)
-//       });
-//     }, 1000);}
-//     else if (rollNumber > 1){
-//       currentRoll.forEach(function(die){
-//         die.classList.add("shake")
-//       }, 1000);
+    
+    function removeAllDice(parent) {
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+      }
+    }
+    
+    // function checkForUpperBonus(){
+      
+    // }
+    
+    
+    function isInArray(value, array) {
+      return array.indexOf(value) > -1;
+    }    
+        
+    function getTotal () {
+      let arrayTotal = diceInPlay.reduce(function(previousValue, currentValue) {
+        return previousValue + currentValue;
+      });
+      return arrayTotal
+    }
+    
+    
+    // if(!scoreableNums.length && scoreableCell === "8-sum"){
+    //   values = diceInPlay.reduce((obj, dice) => {
+    //     if (obj[dice]) {
+    //       obj[dice]++
+    //     }else {
+    //       obj[dice] = 1
+    //     }
+    //     return obj
+    //   }, {})
+      
+    //   let obVal = Object.values(values)
+    //   if(obVal.includes(4)){
+        
+    //     sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+        
+    //     keepScore.innerText = sum
+    //   } else {
+    //     keepScore.innerText = 0
+    //   }
+    // }
+    
+    // if(!scoreableNums.length && scoreableCell === "9-sum"){
+    //   values = diceInPlay.reduce((obj, dice) => {
+    //     if (obj[dice]) {
+    //       obj[dice]++
+    //     }else {
+    //       obj[dice] = 1
+    //     }
+    //     return obj
+    //   }, {})
+      
+    //   let obVal = Object.values(values)
+      
+    //   if(obVal.includes(3) && obVal.includes(2)){
+    //     keepScore.innerText = 25
+    //   } else {
+    //     keepScore.innerText = 0
+    //   }
+    // }  
+    
+    // if(!scoreableNums.length && scoreableCell === "10-sum"){
+    //   values = diceInPlay.reduce((obj, dice) => {
+    //     if (obj[dice]) {
+    //       obj[dice]++
+    //     }else {
+    //       obj[dice] = 1
+    //     }
+    //     return obj
+    //   }, {})
+      
+    //   let obVal = Object.values(values)
+      
+    //   if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
+    //     keepScore.innerText = 30
+    //   } else {
+    //     keepScore.innerText = 0
+    //   }
+      
+      
+      
+    
+    // if(!scoreableNums.length && scoreableCell === "11-sum"){
+      //   values = diceInPlay.reduce((obj, dice) => {
+        //     if (obj[dice]) {
+          //       obj[dice]++
+          //     }else {
+            //     obj[dice] = 1
+            //     }
+            //     return obj
+            //   }, {})
+            
+            //   let obVal = Object.values(values)
+            
+            //   if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
+              //     keepScore.innerText = 40
+//   } else {
+//     keepScore.innerText = 0
 //   }
-//   // console.log(currentRoll)
-// }
+// }  
+//   if(!scoreableNums.length && scoreableCell === "12-sum"){
+//     values = diceInPlay.reduce((obj, dice) => {
+//       if (obj[dice]) {
+//         obj[dice]++
+//       }else {
+//       obj[dice] = 1
+//       }
+//       return obj
+//     }, {})
+    
+//     let obVal = Object.values(values)
+
+//     if(obVal.includes(5)){
+//       keepScore.innerText = 50
+//     } else {
+//       keepScore.innerText = 0
+//     }    
+//   }
+
+// if(!scoreableNums.length && scoreableCell === "13-sum"){
+//   sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
+    
+//   keepScore.innerText = sum
+  
+  
