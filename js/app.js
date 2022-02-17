@@ -65,7 +65,7 @@ function rollAnimation(){
     for(let i = 0; i < diceArea.childNodes.length; i++ ){
       diceArea.childNodes[i].classList.remove("shake")
     }
-  }, 1000);
+  }, 750);
 }
 
 function createDie(value){

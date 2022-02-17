@@ -49,5 +49,6 @@ YAHTZEE® With Buddies Dice Game - Apps on Google Play as it's favicon. Found on
 * Include button that pops up rules
 * Include a button that pops up scoring
 * Update fonts
+* Temporarily disable click until roll function completes
 
 ***
