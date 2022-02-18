@@ -19,7 +19,7 @@ let rollNumber = 0
 let upperScore = 0
 let lowerScore = 0
 let sum = 0
-let turn = 12
+let turn = 1
 
 
 

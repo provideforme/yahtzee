@@ -14,30 +14,59 @@ html {
 body {
   height: 100vh;
   background-color: darkgray;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  margin-top: 50px;
+  grid-template-columns: 40% 20% 40%;
+  grid-template-rows: 110px 30px 220px 220px;
+  grid-template-areas: 
+  "img button button"
+  "message message message"
+  "diceArea diceArea score-sheet"
+  "dice-kept-area dice-kept-area score-sheet" 
+  ;
+}
+
+#roll-btn:hover {
+  background-color: #dedede;
+  color: blueviolet;
+}
+
+#roll-btn{
+  width: 60px;
+  height: 60px;
+  font-size: large;
+  border-radius: 30px;
+  margin: 30px 0 0px 40px  ;
+  grid-area: button ;
+}
+
+.img{
+  max-width: 80%;
+  max-height: 80%;
+  margin: auto;
+  grid-area: img;
 }
 
 #dice-area {
-  width: 600px;
+  width: 100%;
   height: 200px;
   padding: 50px;
   border-radius: 30px;
   background-color: white;
   display: flex;
   justify-content: center;
+  grid-area: diceArea;
 }
 
 .dice-kept-area {
-  width: 600px;
+  width: 100%;
   height: 200px;
   padding: 50px;
   border-radius: 30px;
   background-color: white;
   display: flex;
   justify-content: center;
+  grid-area: dice-kept-area;
 }
 
 .diceIMG {
@@ -73,15 +102,26 @@ body {
   }
 }
 
-#scoreSheet {
-
-  clear: both;
-  margin-bottom: 30px; }
-
+#score-sheet {
+  grid-area: score-sheet;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+  
   table {
-    background-color: white;
-    table-layout: auto; 
-    width: 150px;
+    background-color: white; 
   }
 
-  
+  tr, th, td {
+    border: 1px solid black;
+  }
+
+  #message{
+    grid-area: message;
+    text-align: center;
+    color: white
+  }
