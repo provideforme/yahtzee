@@ -7,43 +7,109 @@
   <title>Document</title>
   <script defer src="../js/app.js"></script>
   <link rel="stylesheet" href="../css/style.css"></link>
+  <link 
+  id="favicon" 
+  rel="icon"
+  href="../images/yahtz-favicon-32x32.png"
+  type="image/png" 
+  sizes="32x32"
+>
 </head>
 <body>
   <button id="roll-btn">Roll</button>
-    <div class="dice-area">
-      <div style="visibility: hidden"
-      id="main-zone" 
-      class="die">
-        <img
-        class="diceIMG"
-        width="100"
-        height="100"
-        src="../images/Dice-1-b.svg">
-        <img 
-        class="diceIMG"
-        width="100"
-        height="100"
-        src="../images/Dice-2-b.svg">
-        <img 
-        class="diceIMG"
-        width="100"
-        height="100"
-        src="../images/Dice-3-b.svg">
-        <img 
-        class="diceIMG"
-        width="100"
-        height="100"
-        src="../images/Dice-4-b.svg">
-        <img 
-        class="diceIMG"
-        width="100"
-        height="100"
-        src="../images/Dice-5-b.svg">
-      </div>
+    <br>
+    <div id="message"></div>
+    <div id="dice-area">
     </div>
     <br>
     <div class="dice-kept-area">
       <div id="keep-zone" class="kept-die"></div>
+    </div>
+    <div id="score-sheet">
+      <table>
+        <thead>
+          <tr>
+            <th class="section-head">Upper section</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Aces</td>
+            <td id="1-score"></td>
+            <td id="1-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>Twos</td>
+            <td id="2-score"></td>
+            <td id="2-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>Threes</td>
+            <td id="3-score"></td>
+            <td id="3-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>Fours</td>
+            <td id="4-score"></td>
+            <td id="4-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>Fives</td>
+            <td id="5-score"></td>
+            <td id="5-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>Sixes</td>
+            <td id="6-score"></td>
+            <td id="6-sum" class="potential-score"></td>
+          </tr>
+          <tr id="upper-bonus">
+            <td>Bonus</td>
+            <td></td>
+            <td id="upper-bonus-score"></td>
+          </tr>
+          <tr>
+            <th class="section-head">Lower section</th>
+            <th>Score</th>
+          </tr>
+          <tr>
+            <td>3 of a kind</td>
+            <td id="7-score"></td>
+            <td id="7-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>4 of a kind</td>
+            <td id="8-score"></td>
+            <td id="8-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>Full House</td>
+            <td id="9-score"></td>
+            <td id="9-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>Small Straight</td>
+            <td id="10-score"></td>
+            <td id="10-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>Large Straight</td>
+            <td id="11-score"></td>
+            <td id="11-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>Yahtzee</td>
+            <td id="12-score"></td>
+            <td id="12-sum" class="potential-score"></td>
+          </tr>
+          <tr>
+            <td>Chance</td>
+            <td id="13-score"></td>
+            <td id="13-sum" class="potential-score"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 </body>
 </html>
