@@ -1,4 +1,5 @@
 /*-------------------------------- Constants --------------------------------*/
+
 const diceObject = {
   1: "../images/Dice-1-b.svg",
   2: "../images/Dice-2-b.svg",
@@ -8,12 +9,11 @@ const diceObject = {
   6: "../images/Dice-6a-b.svg"
 }
 
-//key value pairs. each image needs a value.
-
 /*-------------------------------- Variables --------------------------------*/
-let diceInPlay = [];
-let currentRoll = [];
-let keptDice = [];
+
+let diceInPlay = []
+let currentRoll = []
+let keptDice = []
 let count = 0
 let rollNumber = 0
 let upperScore = 0
@@ -21,30 +21,26 @@ let lowerScore = 0
 let sum = 0
 let turn = 1
 
-
-
-
-
-
 /*------------------------ Cached Element References ------------------------*/
-const rollButton = document.getElementById("roll-btn");
-const diceArea = document.getElementById("dice-area");
-const diceKeptArea = document.getElementById("keep-zone");
+
+const rollButton = document.getElementById("roll-btn")
+const diceArea = document.getElementById("dice-area")
+const diceKeptArea = document.getElementById("keep-zone")
 const scoreSheet = document.getElementById("score-sheet")
 const potentialScore = document.querySelectorAll("potential-score")
 const scoreTable = document.getElementById("-sum")
 const upperScoreBonus = document.getElementById("upper-bonus-score")
 
-
 /*----------------------------- Event Listeners -----------------------------*/
-rollButton.addEventListener('click', roll);
 
-diceKeptArea.addEventListener('click', returnDie);
+rollButton.addEventListener('click', roll)
+diceKeptArea.addEventListener('click', returnDie)
 
 
 /*-------------------------------- Functions --------------------------------*/
+
 function roll(){
-  diceArea.addEventListener('click', keepDie);
+  diceArea.addEventListener('click', keepDie)
   clickCount()
   scoreSheet.addEventListener('click', changeScore)
   if(rollNumber > 3) return
@@ -98,19 +94,19 @@ function shuffleOrder(arr) {
 
 
 function keepDie(evt) {
-  let dieToBeRemoved = document.getElementById(evt.target.id);
-  dieToBeRemoved.parentNode.removeChild(dieToBeRemoved);
+  let dieToBeRemoved = document.getElementById(evt.target.id)
+  dieToBeRemoved.parentNode.removeChild(dieToBeRemoved)
   const id = parseInt(evt.target.id)
   const index = currentRoll.indexOf(id)
-  currentRoll.splice(index, 1);
+  currentRoll.splice(index, 1)
   keptDice.push(id)
   diceKeptArea.appendChild(dieToBeRemoved)
   updateScoreableDie()
 }
 
 function returnDie(evt) {
-  let dieToBeReturned = document.getElementById(evt.target.id);
-  dieToBeReturned.parentNode.removeChild(dieToBeReturned);
+  let dieToBeReturned = document.getElementById(evt.target.id)
+  dieToBeReturned.parentNode.removeChild(dieToBeReturned)
   const id = parseInt(evt.target.id)
   const index = keptDice.indexOf(id)
   currentRoll.push(keptDice.splice(index, 1)[0])
@@ -127,13 +123,13 @@ function updateScoreableDie(){
 function clickCount(){
 
   if(count === 0 || count === 1){
-    count += 1;
-    rollNumber += 1;
+    count += 1
+    rollNumber += 1
   } else if (
     count === 2
     )
     {
-    rollNumber += 1;
+    rollNumber += 1
     rollButton.removeEventListener('click', roll)
   }
     }
@@ -142,17 +138,12 @@ function clickCount(){
 function changeScore(evt) {
   if (evt.target.innerText === "") {
     let values
-    
     let cellNum = parseInt(evt.target.id)
-    
     scoreableCell = cellNum + "-sum"
-    
     let scoreableNums =  diceInPlay.filter(num => num === cellNum)
-    
     const keepScore = document.getElementById(scoreableCell)
-    
-    if(scoreableNums.length) {
-      
+
+    if(scoreableNums.length) { 
       sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
       keepScore.innerText = sum
       upperScore += sum
@@ -177,9 +168,7 @@ function changeScore(evt) {
       
       let obVal = Object.values(values)
       if(obVal.includes(3)){
-        
         sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
-        
         keepScore.innerText = sum
         lowerScore += sum
       } else {
@@ -187,6 +176,7 @@ function changeScore(evt) {
         lowerScore += sum
       } 
     }
+
     if(!scoreableNums.length && scoreableCell === "8-sum"){
       values = diceInPlay.reduce((obj, dice) => {
         if (obj[dice]) {
@@ -199,9 +189,7 @@ function changeScore(evt) {
       
       let obVal = Object.values(values)
       if(obVal.includes(4)){
-        
         sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
-        
         keepScore.innerText = sum
         lowerScore += sum
       } else {
@@ -209,6 +197,7 @@ function changeScore(evt) {
         lowerScore += sum
       }
     } 
+
     if(!scoreableNums.length && scoreableCell === "9-sum"){
       values = diceInPlay.reduce((obj, dice) => {
         if (obj[dice]) {
@@ -220,7 +209,7 @@ function changeScore(evt) {
       }, {})
       
       let obVal = Object.values(values)
-      
+
       if(obVal.includes(3) && obVal.includes(2)){
         keepScore.innerText = 25
         lowerScore += sum
@@ -241,7 +230,7 @@ function changeScore(evt) {
       }, {})
       
       let obVal = Object.keys(values)
-      console.log(obVal)
+      
       if((obVal.includes("1") && obVal.includes("2") && obVal.includes("3") && obVal.includes("4")) || (obVal.includes("5") && obVal.includes("2") && obVal.includes("3") && obVal.includes("4"))  || (obVal.includes("5") && obVal.includes("6") && obVal.includes("3") && obVal.includes("4"))){
         keepScore.innerText = 30
         lowerScore += sum
@@ -250,6 +239,7 @@ function changeScore(evt) {
         lowerScore += sum
       }
     }
+
     if(!scoreableNums.length && scoreableCell === "11-sum"){
       values = diceInPlay.reduce((obj, dice) => {
         if (obj[dice]) {
@@ -268,8 +258,9 @@ function changeScore(evt) {
       } else {
         keepScore.innerText = 0
         lowerScore += sum
-    }
-    }  
+      }
+    } 
+      
     if(!scoreableNums.length && scoreableCell === "12-sum"){
       values = diceInPlay.reduce((obj, dice) => {
         if (obj[dice]) {
@@ -292,8 +283,7 @@ function changeScore(evt) {
     }
 
     if(!scoreableNums.length && scoreableCell === "13-sum"){
-      sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
-        
+      sum = diceInPlay.reduce((prev, cur) => prev + cur, 0) 
       keepScore.innerText = sum
       lowerScore += sum
     }
