@@ -305,7 +305,6 @@ function changeScore(evt) {
     
     
 function resetRoll(){
-  console.log(turn)
   if(turn === 13){
     return endGame()
   }

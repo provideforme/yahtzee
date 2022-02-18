@@ -3,6 +3,8 @@
 
 # Yahtzee 🎲
 
+![gameboard](../images/../Yahtzee/images/Screen%20Shot%202022-02-18%20at%209.44.36%20AM.png)
+
 Hello everybody! Thank you for playing my take on the classic Milton Bradley dice game: Yahtzee! This was my first project at General Assembly. 
 
 ***
