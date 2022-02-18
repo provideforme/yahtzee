@@ -16,6 +16,11 @@ let currentRoll = [];
 let keptDice = [];
 let count = 0
 let rollNumber = 0
+let upperScore = 0
+let lowerScore = 0
+let sum = 0
+let turn = 12
+
 
 
 
@@ -26,17 +31,20 @@ const rollButton = document.getElementById("roll-btn");
 const diceArea = document.getElementById("dice-area");
 const diceKeptArea = document.getElementById("keep-zone");
 const scoreSheet = document.getElementById("score-sheet")
-const potentialScore = document.querySelector("potential-score")
+const potentialScore = document.querySelectorAll("potential-score")
 const scoreTable = document.getElementById("-sum")
+const upperScoreBonus = document.getElementById("upper-bonus-score")
+
 
 /*----------------------------- Event Listeners -----------------------------*/
 rollButton.addEventListener('click', roll);
-diceArea.addEventListener('click', keepDie);
+
 diceKeptArea.addEventListener('click', returnDie);
 
 
 /*-------------------------------- Functions --------------------------------*/
 function roll(){
+  diceArea.addEventListener('click', keepDie);
   clickCount()
   scoreSheet.addEventListener('click', changeScore)
   if(rollNumber > 3) return
@@ -103,19 +111,18 @@ function keepDie(evt) {
 function returnDie(evt) {
   let dieToBeReturned = document.getElementById(evt.target.id);
   dieToBeReturned.parentNode.removeChild(dieToBeReturned);
-  
   const id = parseInt(evt.target.id)
   const index = keptDice.indexOf(id)
-  console.log(index)
-  keptDice.splice(index, 1);
-  currentRoll.push(id)
+  currentRoll.push(keptDice.splice(index, 1)[0])
   diceArea.appendChild(dieToBeReturned)
   updateScoreableDie()
 }
 
 function updateScoreableDie(){
   diceInPlay = currentRoll.concat(keptDice)
+  console.log(diceInPlay)
 }
+
 
 function clickCount(){
 
@@ -148,7 +155,14 @@ function changeScore(evt) {
       
       sum = scoreableNums.reduce((prev, cur) => prev + cur, 0)
       keepScore.innerText = sum
-      
+      upperScore += sum
+      if(upperScore >= 63){
+        upperScore += 35
+        upperScoreBonus.innerText = 35
+        console.log(upperScore)
+      }
+    } else {
+      keepScore.innerText = 0
     }
 
     if(!scoreableNums.length && scoreableCell === "7-sum"){
@@ -167,8 +181,10 @@ function changeScore(evt) {
         sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
         
         keepScore.innerText = sum
+        lowerScore += sum
       } else {
         keepScore.innerText = 0
+        lowerScore += sum
       } 
     }
     if(!scoreableNums.length && scoreableCell === "8-sum"){
@@ -187,8 +203,10 @@ function changeScore(evt) {
         sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
         
         keepScore.innerText = sum
+        lowerScore += sum
       } else {
         keepScore.innerText = 0
+        lowerScore += sum
       }
     } 
     if(!scoreableNums.length && scoreableCell === "9-sum"){
@@ -205,8 +223,10 @@ function changeScore(evt) {
       
       if(obVal.includes(3) && obVal.includes(2)){
         keepScore.innerText = 25
+        lowerScore += sum
       } else {
         keepScore.innerText = 0
+        lowerScore += sum
       }
     }  
     
@@ -220,12 +240,14 @@ function changeScore(evt) {
         return obj
       }, {})
       
-      let obVal = Object.values(values)
-      
-      if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
+      let obVal = Object.keys(values)
+      console.log(obVal)
+      if((obVal.includes("1") && obVal.includes("2") && obVal.includes("3") && obVal.includes("4")) || (obVal.includes("5") && obVal.includes("2") && obVal.includes("3") && obVal.includes("4"))  || (obVal.includes("5") && obVal.includes("6") && obVal.includes("3") && obVal.includes("4"))){
         keepScore.innerText = 30
+        lowerScore += sum
       } else {
         keepScore.innerText = 0
+        lowerScore += sum
       }
     }
     if(!scoreableNums.length && scoreableCell === "11-sum"){
@@ -238,12 +260,14 @@ function changeScore(evt) {
             return obj
           }, {})
         
-          let obVal = Object.values(values)
+          let obVal = Object.keys(values)
         
-          if(obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1) && obVal.includes(1)){
+          if((obVal.includes("1") && obVal.includes("2") && obVal.includes("3") && obVal.includes("4") && obVal.includes("5")) || (obVal.includes("6") && obVal.includes("2") && obVal.includes("3") && obVal.includes("4") && obVal.includes("5"))){
               keepScore.innerText = 40
+              lowerScore += sum
       } else {
         keepScore.innerText = 0
+        lowerScore += sum
     }
     }  
     if(!scoreableNums.length && scoreableCell === "12-sum"){
@@ -260,8 +284,10 @@ function changeScore(evt) {
 
       if(obVal.includes(5)){
         keepScore.innerText = 50
+        lowerScore += sum
       } else {
         keepScore.innerText = 0
+        lowerScore += sum
       }    
     }
 
@@ -269,8 +295,8 @@ function changeScore(evt) {
       sum = diceInPlay.reduce((prev, cur) => prev + cur, 0)
         
       keepScore.innerText = sum
-      }
-
+      lowerScore += sum
+    }
         resetRoll()
   } else {
     return
@@ -279,6 +305,10 @@ function changeScore(evt) {
     
     
 function resetRoll(){
+  console.log(turn)
+  if(turn === 13){
+    return endGame()
+  }
   diceInPlay = []
   currentRoll = []
   keptDice = []
@@ -288,6 +318,7 @@ function resetRoll(){
   rollButton.addEventListener('click', roll);
   removeAllDice(diceArea)
   removeAllDice(diceKeptArea)
+  turn += 1
 }
 
 function removeAllDice(parent) {
@@ -296,23 +327,12 @@ function removeAllDice(parent) {
   }
 }
 
+function endGame(){
+  let message = document.getElementById("message")
+  total = upperScore + lowerScore
+  message.innerText = `Congratulations you scored ${total} points!`
+}
 
+// figure out why i can't return more than one die to upper section
 
-
-// function addValue() {
-//   scoreTable.forEach((el, index) => {
-//       el.textContent = nums[index]
-//   });
-// }
-
-    
-// function getTotal () {
-//   let arrayTotal = diceInPlay.reduce(function(previousValue, currentValue) {
-//     return previousValue + currentValue;
-//   });
-//   return arrayTotal
-// }
-
-
-  
   
