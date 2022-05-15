@@ -3,13 +3,13 @@
 
 # Yahtzee 🎲
 
-![gameboard](../images/../Yahtzee/images/Screen%20Shot%202022-02-18%20at%209.44.36%20AM.png)
+![gameboard](https://i.imgur.com/6aAu38C.png)
 
 Hello everybody! Thank you for playing my take on the classic Milton Bradley dice game: Yahtzee! This was my first project at General Assembly. 
 
 ***
 
-## [PLAY IT HERE](https://provideforme.github.io/yahtzee/)
+## [PLAY IT HERE](https://closed-quiver.surge.sh/)
 
 ***
 
